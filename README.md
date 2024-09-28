@@ -2,7 +2,7 @@
 
 This Todo application is a personal project created to learn and practice the MERN stack(MongoDB, Express, React, Node.js). This app allows users to create, read, update, and delete todos.
 
-![Alt text](/project-screen/project-screenshot.png)
+![Alt text](https://github.com/jbrasay/project-screenshots/blob/0fa4f1c41b34302c67808a28b5410c12be4f18f8/screenshots/todo-app.png)
 
 ## Features
 
