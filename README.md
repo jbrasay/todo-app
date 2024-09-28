@@ -22,7 +22,7 @@ This Todo application is a personal project created to learn and practice the ME
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/jbrasay/react-weather-app.git
+   git clone https://github.com/jbrasay/todo-app.git
    cd todo-app
 
 2. Navigate to the server directory and install dependencies:
