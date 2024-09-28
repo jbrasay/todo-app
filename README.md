@@ -43,6 +43,7 @@ This Todo application is a personal project created to learn and practice the ME
 
    ```bash
    MONGODB_URI=your_mongodb_connection_string
+   PORT=your_server_port
 
 ## Starting Project
 
