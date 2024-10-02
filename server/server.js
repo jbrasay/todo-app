@@ -22,7 +22,7 @@ const app = express();
 app.use(cors());
 //Middleware to parse json
 app.use(express.json());
-// use /api to prefix our endpoints
+// use /api/todos to prefix our endpoints
 app.use("/api/todos", todoRouter);
 
 //assign env port data to a variable

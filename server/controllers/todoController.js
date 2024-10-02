@@ -1,5 +1,6 @@
 import todoModel from "../models/todoModel.js";
 
+//Get all the documents stored in the collection
 const getAllTask = async (req, res) => {
     try {
         const data = await todoModel.find({});

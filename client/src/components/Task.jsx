@@ -1,13 +1,13 @@
 import axios from "axios";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function Task({data, index, setTasks}) {
-    const [isEditing, setIsEditing] = useState(false);
-    const [dataToEdit, setDataToEdit] = useState(data.task);
+    const [isEditing, setIsEditing] = useState(false); //State for users is editing a task
+    const [dataToEdit, setDataToEdit] = useState(data.task); //Set the data to be edited to the current task 
 
     //Send edited task to the database and update state tasks
     const handleEditing = async (taskId) => {
-        console.log(dataToEdit.length);
+       //console.log(dataToEdit.length);
         if(isEditing && dataToEdit.length > 0) {
             const response = await axios.patch(`http://localhost:5000/api/todos/editTask/${taskId}`, {
                 task: dataToEdit
@@ -15,13 +15,12 @@ export default function Task({data, index, setTasks}) {
             if (response.status == 200) {
                 setTasks(prevTasks => {
                     prevTasks.find(data => data._id == taskId).task = dataToEdit;
-                    return prevTasks;
+                    return [...prevTasks]
                 })
             }
             else {
-                console.log("Could not edit task!");
+                alert("Could not edit task!");
             }
-
             //Save and set to false
             setIsEditing(false)
         }
@@ -48,62 +47,48 @@ export default function Task({data, index, setTasks}) {
         const response = await axios.delete(`http://localhost:5000/api/todos/removeTask/${taskId}`);
         if (response.status == 200) {
             setTasks((prevTasks) => {
-                return prevTasks.filter((task) => (task._id != taskId));
+                return prevTasks.filter(task => task._id != taskId);
             })
         }
         else {
-            console.log("Unable to delete task");
+            alert("Unable to delete task");
         }
 
     }
 
-     //Update database completed status and state tasks completed status to true
+    //Update task status in the database and the state
     const completeTask = async (taskId, status) => {
-        //console.log("complete Task");
-        //console.log(status);
-        
-        //console.log("Completing Task!");
         const response = await axios.patch(`http://localhost:5000/api/todos/completeTask/${taskId}`, {
             completed: true
         });
         if (response.status == 200) {
             setTasks(prevTasks => {
-                return prevTasks.map((taskObj) => {
-                    if(taskObj._id === taskId) {
-                        taskObj = {...taskObj, completed: true}
-                        //console.log(taskObj);
-                    }
-                    return taskObj;
-                })
+                prevTasks.find(taskObj => taskObj._id == taskId).completed = true;
+                return [...prevTasks];
             })
         }
         else {
-            console.log("Could not Complete task!");
+            alert("Could not edit task!");
         }
-    }
 
-    //Update database completed status and state tasks completed status to false
+    };
+    
+    //Update task status in the database and the state
     const setTaskToActive = async (taskId, status) => {
-        console.log("Setting task to active!");
         const response = await axios.patch(`http://localhost:5000/api/todos/completeTask/${taskId}`, {
             completed: false
         });
         if (response.status == 200) {
             setTasks(prevTasks => {
-                return prevTasks.map((taskObj) => {
-                    if(taskObj._id === taskId) {
-                        taskObj = {...taskObj, completed: false}
-                        //console.log(taskObj)
-                    }
-                    return taskObj;
-                })
+                prevTasks.find(taskObj => taskObj._id == taskId).completed = false;
+                return [...prevTasks]
             })
         }
         else {
-            console.log("Could not set task to active!");
+            alert("Could not edit task!");
         }
-        //console.log(response);
     }
+
 
     return (
         <div className="flex flex-row justify-between w-full p-4 m-2 text-white font-semibold bg-pink-900 rounded-lg shadow-xl border">

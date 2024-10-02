@@ -7,7 +7,7 @@ This Todo application is a personal project created to learn and practice the ME
 ## Features
 
 - Create, update, and delete todos, and mark todos as completed
-- Login screen (WIP)
+- Login page (WIP)
 
 ## Technologies
 

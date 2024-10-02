@@ -7,13 +7,13 @@ export default function AddTask({setTasks}) {
     const handleChangeTask = (event) => {
         setInputTask(event.target.value);
     }
-
+    //Submit user input 
     const handleTaskSubmit = (event) => {
         event.preventDefault(); //Prevent page from refreshing
         addTask(inputTask);
         setInputTask("");
     }
-
+    //Add new user task to the database and the state variable
     const addTask = async (taskToAdd) => {
         //console.log(taskToAdd);
         const response = await axios.post("http://localhost:5000/api/todos/addTask", {
